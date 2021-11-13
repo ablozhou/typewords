@@ -1,17 +1,19 @@
+# coding=UTF-8
 import random
 import excel
 import time
 
 
 def type_words():
-    print("打字练习，小学英语单词版. 输入[exit]结束练习.")
+    print("打字练习，小学英语单词版. 输入[exit]结束练习. ")
+    print("Author: Andy zhou<ablozhou@gmail.com> 2021")
     count = 0
     # get words
     words = excel.ReadExcel('words.xlsx')
     dicts = words.read_data()
     while True:
         time.sleep(1)
-        word = random.sample(dicts.keys(), 1)[0]  # 随机一个字典中的key，第二个参数为限制个数
+        word = random.sample(list(dicts.keys()), 1)[0]  # 随机一个字典中的key，第二个参数为限制个数
         leng = len(word)
         word += "\n"
         ans = input(word)

@@ -11,6 +11,12 @@
 - python3
 
 ## 运行
+
+### 可执行程序：
+执行双击typewords.exe
+
+### 源码运行
+
 ```
 python typewords.py
 ```
