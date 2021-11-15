@@ -9,7 +9,7 @@ class TypeWords:
     sheetnames={}
 
     def __init__(self):
-        self.count = 0
+        self.points = 0
         self.dicts={}
         # get words
         self.words = excel.ReadExcel('words.xlsx')
@@ -39,7 +39,7 @@ class TypeWords:
         self.dicts = self.words.read_data(self.params["type"])
 
     def help_print(self):
-        print("打字练习，小学英语单词版. 输入[\exit]结束练习. ") 
+        print("打字练习，小学英语单词版. 输入[\exit]结束练习. 负分将结束. ") 
         print("Author: Andy zhou<ablozhou@gmail.com> 2021")
         print("命令列表：")
         print("-"*10)
@@ -73,13 +73,14 @@ class TypeWords:
                 continue
             
             if ans == word:
-                self.count += leng
-                print("---%d---\n%s\n" % (self.count, self.dicts[ans]))
+                self.points += leng
+                print("---%d---\n%s\n" % (self.points, self.dicts[ans]))
             else:
-                self.count -= leng
-                print("Try again... %d\n" % self.count)
-                if self.count < 0:
-                    print("Your have not enough points, game over!!!")
+                self.points -= leng
+                print("Try again... %d\n" % self.points)
+                if self.points <= 0:
+                    print("GAME OVER!!! Your have not enough points!")
+                    input("Type any key to exit...")
                     break
 
 
