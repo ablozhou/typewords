@@ -11,8 +11,6 @@ class ReadExcel:
         self.file_name = file_name
         self.dicts = {}
 
-        # self.sheet_name = sheet_name
-
     def open(self):
         self.wb = openpyxl.load_workbook(self.file_name)
         self.sheets = self.wb.sheetnames
@@ -20,16 +18,35 @@ class ReadExcel:
     def close(self):
         self.wb.close()
 
-    def read_data(self):
-        """按行读取数据，最后返回一个字典"""
+    def sheet_names(self):
+        sheets={}
         self.open()
         for i in range(len(self.sheets)):
             sh = self.wb[self.sheets[i]]
+            sheets[i]=sh.title
+        # for all sheets
+        sheets[99]="all"
+        self.close()
+        return sheets
+        
+
+    def read_data(self, sheet_id):
+        """按行读取数据，最后返回一个字典"""
+        sheets = []
+        
+        self.dicts={}
+        self.open()
+        if sheet_id >= 0 and sheet_id < len(self.sheets):
+            sheets = [self.sheets[sheet_id]]
+            print("practice %s"%sheets[0])
+        else:
+            sheet_id = 99
+            print("practise all words")
+            sheets = self.sheets            
+
+        for i in range(len(sheets)):
+            sh = self.wb[sheets[i]]
             rows = list(sh.rows)
-            # no titles = []
-            # for t in rows[0]:
-            #     title = t.value
-            #     titles.append(title)
 
             for row in rows:
                 item = []
@@ -57,7 +74,6 @@ if __name__ == '__main__':
     d = words.read_data()
     print(d)
 
-
 def testxlsx():
     dicts = {}
     with open('words.xlsx', 'rb') as f:
@@ -69,23 +85,18 @@ def testxlsx():
 
         print(sheets)
 
-        list1 = []
-
         # 循环遍历所有sheet
-
         #for t in range(len(sheets)):
         for t in range(0, 1):
 
             sheet = wb[sheets[t]]
-
             print('\n\n第' + str(t + 1) + '个sheet: ' + sheet.title + '->>')
 
             #len_row代表表中有多少行数据，len_column代表excel表中有多少列数据
-
             len_row = sheet.max_row
             len_column = sheet.max_column
             for i in range(1, len_row + 1):
-                dict[sheet.cell(row=i,column=1).value] = \
+                dicts[sheet.cell(row=i,column=1).value] = \
                 sheet.cell(row=i,column=2).value
 
-        print(dict)
+        print(dicts)
