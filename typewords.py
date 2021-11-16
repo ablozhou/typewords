@@ -2,6 +2,7 @@
 import random
 import excel
 import time
+from colorama import init, Fore#, Style # Back
 
 class TypeWords:
     help_cmds={"/help":"相关命令帮助", "/exit":"退出","/choose":"选类别,[99]为全部","/next":"下一个类别"}
@@ -9,6 +10,7 @@ class TypeWords:
     sheetnames={}
 
     def __init__(self):
+        
         self.points = 0
         self.dicts={}
         # get words
@@ -59,6 +61,7 @@ class TypeWords:
             print("Wrong cmds:",cmd)
 
     def practise(self):
+        
         self.help_print()
         self.choose_types()
 
@@ -66,24 +69,33 @@ class TypeWords:
             time.sleep(1)
             word = random.sample(list(self.dicts.keys()), 1)[0]  # 随机一个字典中的key，第二个参数为限制个数
             leng = len(word)
-            
-            ans = input(f'{word}\n')
-            if ans[0]=="/":
+            print()
+            print(Fore.CYAN+"---points: %d---" % (self.points, ))
+            print(Fore.WHITE+self.dicts[word])
+            print(Fore.GREEN)
+            print(word)
+            print(Fore.YELLOW, end="")
+            ans = input()
+            # print(Fore.RESET)
+            if len(ans) >0 and ans[0]=="/":
+                
                 self.process_cmds(ans)
                 continue
             
             if ans == word:
                 self.points += leng
-                print("---%d---\n%s\n" % (self.points, self.dicts[ans]))
+                #print(Fore.WHITE+"---%d---\n%s\n" % (self.points, self.dicts[ans]))
             else:
                 self.points -= leng
                 print("Try again... %d\n" % self.points)
                 if self.points <= 0:
-                    print("GAME OVER!!! Your have not enough points!")
+                    print(Fore.RED+"GAME OVER!!! Your have not enough points!")
                     input("Type any key to exit...")
+                    print(Fore.RESET+"")
                     break
 
 
 if __name__ == '__main__':
+    init()
     t = TypeWords()
     t.practise()

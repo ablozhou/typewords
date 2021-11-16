@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 openpyxl = "*"
+colorama = "*"
 
 [dev-packages]
 pyinstaller = "*"
