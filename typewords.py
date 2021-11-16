@@ -41,7 +41,7 @@ class TypeWords:
         self.dicts = self.words.read_data(self.params["type"])
 
     def help_print(self):
-        print("打字练习，小学英语单词版. 输入[\exit]结束练习. 负分将结束. ") 
+        print("打字练习，小学英语单词版. 输入[/exit]结束练习. 负分将结束. ") 
         print("Author: Andy zhou<ablozhou@gmail.com> 2021")
         print("命令列表：")
         print("-"*10)
