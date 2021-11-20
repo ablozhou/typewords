@@ -2,19 +2,31 @@
 import random
 import excel
 import time
-from colorama import init, Fore#, Style # Back
-
+import sys
+import os
+from colorama import init, Fore, Back#, Style # Back
+from os import path
+debug = False
+#data = path.abspath(path.join(path.dirname(__file__), 'words.xlsx'))
+data = path.abspath(path.join(path.dirname(sys.argv[0])))+'/words.xlsx'
 class TypeWords:
     help_cmds={"/help":"相关命令帮助", "/exit":"退出","/choose":"选类别,[99]为全部","/next":"下一个类别"}
     params = {"exit":False, "type":99}
     sheetnames={}
 
     def __init__(self):
-        
+        if debug:
+            print( 'sys.argv[0] is', sys.argv[0] )
+            print( 'sys.executable is', sys.executable )
+            print( 'os.getcwd is', os.getcwd() )
+            bundle_dir = path.abspath(path.dirname(__file__))
+            print( 'bundle_dir is', bundle_dir)
+            print( '__file__ path is ',path.dirname(__file__))        
+            print( 'data is',data)        
         self.points = 0
         self.dicts={}
         # get words
-        self.words = excel.ReadExcel('words.xlsx')
+        self.words = excel.ReadExcel(data)
         self.cmds={"/help":self.help_print, "/choose":self.choose_types,"/exit":self.exit,
         "/next":self.next_type}
 
@@ -71,7 +83,7 @@ class TypeWords:
             leng = len(word)
             print()
             print(Fore.CYAN+"---points: %d---" % (self.points, ))
-            print(Fore.WHITE+self.dicts[word])
+            print(Fore.RESET+self.dicts[word])
             print(Fore.GREEN)
             print(word)
             print(Fore.YELLOW, end="")

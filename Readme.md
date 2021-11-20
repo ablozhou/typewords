@@ -53,6 +53,10 @@
 
 
 ## 运行
+### Windows
 下载zip包，执行双击 typewords.exe
 
 运行后，可点击左上角图标，在下拉菜单中选“属性”，设置字体Font，方便孩子看得更清楚。
+### Mac
+下载zip包，命令行或双击执行 typewords
+
